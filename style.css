@@ -1,9 +1,18 @@
+/* HTML Scroll Smooth */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Navbar */
 .navbar {
-  background-color: #fff;
+  background-color: #ffff;
 }
 /* Perstasi */
 #prestasi,
 #dokumentasi {
   background-color: #db261d;
+}
+
+.text-justify {
+  text-align: justify;
 }
