@@ -20,3 +20,31 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+// Menambahkan Submit form ke spreadsheet
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxYigQVMYjPXpeN4Tbcg9ikf9VVRJ7o-8et-qS4w2iXk_sWJ5uuq7_jlupg8Ddsc35o/exec'; // Ganti <SCRIPT URL> dengan URL skrip Google Apps Script Anda
+const form = document.forms['DataCalonPmr']; // Ganti 'DataCalonPmr' dengan nama form Anda
+const btnKirim = document.querySelector('.btn-kirim'); // Tombol kirim form
+const btnLoading = document.querySelector('.btn-loading'); // Tombol loading saat pengiriman form
+const myAlert = document.querySelector('.my-alert'); // Alert untuk notifikasi
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  // ketika tombol dikirim
+  // Tampilkan tombol loading, dan tombol kirim dihilangkan
+  btnLoading.classList.toggle('d-none'); // Menampilkan tombol loading
+  btnKirim.classList.toggle('d-none'); // Menyembunyikan tombol kirim
+
+  fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+    .then((response) => {
+      // Tampilkan tombol kirim, dan tombol Loading dihilangkan
+      btnLoading.classList.toggle('d-none'); // Menyembunyikan tombol loading
+      btnKirim.classList.toggle('d-none'); // Menampilkan tombol kirim
+      // Tampilkan alert
+      myAlert.classList.toggle('d-none'); // Menampilkan alert
+      // Reset form setelah berhasil dikirim
+      form.reset();
+      console.log('Success!', response);
+    })
+    .catch((error) => console.error('Error!', error.message));
+});
